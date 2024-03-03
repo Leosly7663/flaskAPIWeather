@@ -40,7 +40,7 @@ def fetch_json_data(file_path, commit_url):
     json_data = {"example": "data"}
     return json_data
 
-@app.route('/api/json/<commit_id>', methods=['GET'])
+@app.route('/api/json/0bbde3f', methods=['GET'])
 def get_json_data(commit_id):
     if commit_id in stored_data:
         return jsonify(stored_data[commit_id])
