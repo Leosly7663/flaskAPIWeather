@@ -35,7 +35,9 @@ def handle_push_event(payload):
         assetUniqueLink = elem
         assetName = elem[:5]
 
-        response = urllib.request.urlopen(urlBase + str(assetUniqueLink))
+        fomatedLink = urllib.parse.urlencode("https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/" + str(assetUniqueLink))
+
+        response = urllib.request.urlopen(fomatedLink)
         stored_data[assetName] = json.loads(response.read())
 
     
