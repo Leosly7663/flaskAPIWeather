@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from urllib.parse import quote
 import urllib, json
 import re
 
@@ -41,13 +42,18 @@ def handle_push_event(payload):
             assetName = re.match(r"^\w+", assetName).group()
 
             url = urlBase + assetUniqueLink
-            url = url.replace(" ", "%20")
+            #url = url.replace(" ", "%20")
+
+            encoded_url = quote(url, safe=':/')
 
             try:
-                response = urllib.request.urlopen(url)
+                response = urllib.request.urlopen(encoded_url)
                 stored_data[assetName] = json.loads(response.read())
             except:
-                print("404 ERROR: "+ url)
+                print("ERROR AT: "+ url)
+                # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
+                # I FOUND THE STUPID UNICODE CHARACTER THAT HAS BEEN TORMENTING ME FOR HOURS
+
 
 
         else:
