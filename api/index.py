@@ -43,9 +43,9 @@ def handle_push_event(payload):
 
             url = urlBase + assetUniqueLink
             url = url.replace(" ", "%20")
-            url = url.replace("é", "%C3%A9")
+            #url = url.replace("é", "%C3%A9")
 
-            response = urllib.request.urlopen(url, timeout=1)  # Set timeout to 10 seconds
+            response = urllib.request.urlopen(url, timeout=1)  # Set timeout to 1 seconds
             stored_data[assetName] = json.loads(response.read())
 
                 # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
