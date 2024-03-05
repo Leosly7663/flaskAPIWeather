@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import urllib, json
+from urllib.request import Request
 
 app = Flask(__name__)
 
@@ -35,9 +36,9 @@ def handle_push_event(payload):
         assetUniqueLink = elem
         assetName = elem[:5]
 
-        fomatedLink = urllib.parse.urlencode("https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/" + str(assetUniqueLink))
-
-        response = urllib.request.urlopen(fomatedLink)
+        weatherReq = Request("https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/" + str(assetUniqueLink), headers={'User-Agent': 'Mozilla/5.0'})
+        
+        response = urlopen(weatherReq).read()
         stored_data[assetName] = json.loads(response.read())
 
     
