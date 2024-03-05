@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 import urllib, json
-from urllib.request import Request, urlopen
 
 app = Flask(__name__)
 
@@ -39,10 +38,8 @@ def handle_push_event(payload):
         url = urlBase + assetUniqueLink
         url = url.replace(" ", "%20")
 
-        req = Request(url)
-
-        response = urlopen(req).read()
-        stored_data[assetName] = json.dumps(response)
+        response = urllib.request.urlopen()
+        stored_data[assetName] = json.loads(response.read())
 
     
 
