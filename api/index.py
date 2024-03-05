@@ -39,7 +39,7 @@ def handle_push_event(payload):
         weatherReq = Request("https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/" + str(assetUniqueLink), headers={'User-Agent': 'Mozilla/5.0'})
 
         response = urlopen(weatherReq).read()
-        stored_data[assetName] = json.loads(response.read())
+        stored_data[assetName] = json.loads(response)
 
     
 
