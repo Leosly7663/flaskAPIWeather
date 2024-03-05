@@ -40,9 +40,14 @@ def fetch_json_data(file_path, commit_url):
     json_data = {"example": "data"}
     return json_data
 
-@app.route('/api/json/<commit_id>', methods=['GET'])
+#@app.route('/api/json/<commit_id>', methods=['GET'])
+
+@app.route('/', methods=['GET'])
 def get_json_data(commit_id):
-        return jsonify(stored_data)
+    if commit_id in stored_data:
+        return jsonify(stored_data[commit_id])
+    else:
+        return jsonify({'error': 'Data not found'}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
