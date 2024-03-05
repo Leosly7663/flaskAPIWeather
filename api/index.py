@@ -47,8 +47,10 @@ def handle_push_event(payload):
             encoded_url = quote(url, safe=':/')
 
             try:
-                response = urllib.request.urlopen(encoded_url)
+                response = urllib.request.urlopen(encoded_url, timeout=10)  # Set timeout to 10 seconds
                 stored_data[assetName] = json.loads(response.read())
+            except urllib.error.URLError as e:
+                print("URLError:", e.reason)
             except:
                 print("ERROR AT: "+ url)
                 # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
@@ -84,4 +86,4 @@ def get_json_data():
     return jsonify(stored_data)
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
