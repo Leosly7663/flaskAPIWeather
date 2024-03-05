@@ -32,15 +32,17 @@ def handle_push_event(payload):
     # Assets/Data/Alexandria/Main_2024-03-05_Queried_at_13h59m.json
 
     for elem in data['commits'][0]['added']:
-        assetUniqueLink = elem
-        assetName = elem[:5]
+        if elem[-5:] == ".json":
+            assetUniqueLink = elem
+            assetName = elem[:5]
 
-        url = urlBase + assetUniqueLink
-        url = url.replace(" ", "%20")
+            url = urlBase + assetUniqueLink
+            url = url.replace(" ", "%20")
 
-        response = urllib.request.urlopen(url)
-        stored_data[assetName] = json.loads(response.read())
-
+            response = urllib.request.urlopen(url)
+            stored_data[assetName] = json.loads(response.read())
+        else:
+            continue
     
 
 
