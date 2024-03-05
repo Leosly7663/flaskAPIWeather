@@ -38,7 +38,7 @@ def handle_push_event(payload):
     
 
 @app.route('/api/<city>', methods=['GET'])
-def get_json_data_city():
+def get_json_data_city(city):
     global stored_data
 
     for elem in stored_data:
