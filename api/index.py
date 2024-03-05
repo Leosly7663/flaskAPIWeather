@@ -36,9 +36,12 @@ def handle_push_event(payload):
         assetUniqueLink = elem
         assetName = elem[:5]
 
-        weatherReq = Request("https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/" + str(assetUniqueLink), headers={'User-Agent': 'Mozilla/5.0'})
+        url = urlBase + assetUniqueLink
+        url = url.replace(" ", "%20")
 
-        response = urlopen(weatherReq).read()
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+
+        response = urlopen(req).read()
         stored_data[assetName] = json.loads(response)
 
     
