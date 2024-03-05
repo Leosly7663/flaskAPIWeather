@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify
+import urllib, json
 
 app = Flask(__name__)
 
 # Dummy storage for JSON data
-stored_data = {}
+stored_data = {"added":"none"}
 
 @app.route('/webhook/github', methods=['POST'])
 def github_webhook():
@@ -20,17 +21,22 @@ def github_webhook():
     return jsonify({'msg': 'Unhandled event'}), 400
 
 def handle_push_event(payload):
-    # Extract relevant data from the payload
-    repository_name = payload['repository']['full_name']
-    commits = payload['commits']
+    # Instead of taking info from the payload the push event will simply trigger the data to fill from github using the github timer to time json updates
+    
+    
+    
 
-    # Fetch JSON files from commits and store them
-    for commit in commits:
-        for file in commit['added']:
-            if file.endswith('.json'):
-                # Example: Storing JSON data with commit ID as key
-                commit_id = commit['id']
-                stored_data[commit_id] = fetch_json_data(file, commit['url'])
+    data = json.loads(payload)
+    added_files = data['commits'][0]['added']
+
+    stored_data["added"] = added_files
+
+    url = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Alexandria/Future_Fri_1_Mar_Queried_at_2024-02-25.json"
+
+    response = urllib.request.urlopen(url)
+    dataNew = json.loads(response.read())
+
+
 
 def fetch_json_data(file_path, commit_url):
     # Implement fetching JSON file content from GitHub using commit URL or other means
@@ -43,11 +49,8 @@ def fetch_json_data(file_path, commit_url):
 #@app.route('/api/json/<commit_id>', methods=['GET'])
 
 @app.route('/', methods=['GET'])
-def get_json_data(commit_id):
-    if commit_id in stored_data:
-        return jsonify(stored_data[commit_id])
-    else:
-        return jsonify({'error': 'Data not found'}), 404
+def get_json_data():
+    return jsonify(stored_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
