@@ -42,7 +42,7 @@ def handle_push_event(payload):
         req = Request(url)
 
         response = urlopen(req).read()
-        stored_data[assetName] = json.loads(response)
+        stored_data[assetName] = json.dumps(response)
 
     
 
