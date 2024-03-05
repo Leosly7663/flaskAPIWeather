@@ -9,6 +9,7 @@ stored_data = {"added":"none"}
 
 @app.route('/webhook/github', methods=['POST'])
 def github_webhook():
+    global stored_data
     event_type = request.headers.get('X-GitHub-Event')
 
     if event_type == 'ping':
@@ -22,6 +23,7 @@ def github_webhook():
     return jsonify({'msg': 'Unhandled event'}), 400
 
 def handle_push_event(payload):
+    global stored_data
     # Instead of taking info from the payload the push event will simply trigger the data to fill from github using the github timer to time json updates
     urlBase = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/"
 
@@ -60,10 +62,14 @@ def fetch_json_data(file_path, commit_url):
     json_data = {"example": "data"}
     return json_data
 
-#@app.route('/api/json/<commit_id>', methods=['GET'])
+@app.route('/api/<city>', methods=['GET'])
+def get_json_data_city():
+    global stored_data
+    return jsonify(stored_data[city])
 
 @app.route('/', methods=['GET'])
 def get_json_data():
+    global stored_data
     return jsonify(stored_data)
 
 if __name__ == '__main__':
