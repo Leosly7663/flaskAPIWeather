@@ -22,17 +22,26 @@ def github_webhook():
 
 def handle_push_event(payload):
     # Instead of taking info from the payload the push event will simply trigger the data to fill from github using the github timer to time json updates
-    
+    urlBase = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/"
+
 
     data = payload
     added_files = data['commits'][0]['added']
 
-    stored_data["added"] = added_files
+    
+    # Assets/Data/Alexandria/Main_2024-03-05_Queried_at_13h59m.json
 
-    url = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Alexandria/Future_Fri_1_Mar_Queried_at_2024-02-25.json"
+    for elem in data['commits'][0]['added']:
+        assetUniqueLink = elem
+        assetName = elem[:5]
 
-    response = urllib.request.urlopen(url)
-    dataNew = json.loads(response.read())
+        response = urllib.request.urlopen(urlBase + assetUniqueLink)
+        stored_data[assetName] = json.loads(response.read())
+
+    
+
+
+    
 
 
 
