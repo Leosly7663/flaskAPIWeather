@@ -47,7 +47,7 @@ def handle_push_event(payload):
             encoded_url = quote(url, safe=':/')
 
             try:
-                response = urllib.request.urlopen(encoded_url, timeout=10)  # Set timeout to 10 seconds
+                response = urllib.request.urlopen(encoded_url, timeout=1)  # Set timeout to 10 seconds
                 stored_data[assetName] = json.loads(response.read())
             except urllib.error.URLError as e:
                 print("URLError:", e.reason)
