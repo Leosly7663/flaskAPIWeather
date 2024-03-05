@@ -43,8 +43,6 @@ def handle_push_event(payload):
             url = urlBase + assetUniqueLink
             url = urllib.parse.quote(url, safe=':/')
 
-            print(url)
-
             response = urllib.request.urlopen(url)
             stored_data[assetName] = json.loads(response.read())
 
