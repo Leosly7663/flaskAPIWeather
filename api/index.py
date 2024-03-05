@@ -39,7 +39,7 @@ def handle_push_event(payload):
         url = urlBase + assetUniqueLink
         url = url.replace(" ", "%20")
 
-        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        req = Request(url)
 
         response = urlopen(req).read()
         stored_data[assetName] = json.loads(response)
