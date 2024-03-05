@@ -44,11 +44,11 @@ def handle_push_event(payload):
             url = url.replace(" ", "%20")
             url = urllib.parse.quote(url, safe=':/')
 
-            try:
-                response = urllib.request.urlopen(url)
-                stored_data[assetName] = json.loads(response.read())
-            except HTTPError:
-                print("404 ERROR: "+ url)
+            print(url)
+
+            response = urllib.request.urlopen(url)
+            stored_data[assetName] = json.loads(response.read())
+
 
 
         else:
