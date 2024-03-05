@@ -26,52 +26,42 @@ def github_webhook():
 def handle_push_event(payload):
     global stored_data
     # Instead of taking info from the payload the push event will simply trigger the data to fill from github using the github timer to time json updates
-    urlBase = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/"
+    
 
 
     data = payload
     added_files = data['commits'][0]['added']
-
+    stored_data['added'] = added_files
     
     # Assets/Data/Alexandria/Main_2024-03-05_Queried_at_13h59m.json
 
-    for elem in data['commits'][0]['added']:
+    
+
+@app.route('/api/<city>', methods=['GET'])
+def get_json_data_city():
+    global stored_data
+
+    for elem in stored_data:
         if elem[-5:] == ".json":
             assetName = elem[12:]
             assetName = re.match(r"^\w+", assetName).group()
+            if assetName == city:
+                # Encode the URL with UTF-8
+                urlBase = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/"
 
-            # Encode the URL with UTF-8
-            encoded_url = quote(urlBase + elem, safe=':/')
+                encoded_url = quote(urlBase + elem, safe=':/')
 
-            response = urllib.request.urlopen(encoded_url, timeout=1)  # Set timeout to 1 second
-            stored_data[assetName] = json.loads(response.read())
+                response = urllib.request.urlopen(encoded_url, timeout=1)  # Set timeout to 1 second
+                return({[assetName] : json.loads(response.read())})
 
-                # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
-                # I FOUND THE STUPID UNICODE CHARACTER THAT HAS BEEN TORMENTING ME FOR HOURS
+                    # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
+                    # I FOUND THE STUPID UNICODE CHARACTER THAT HAS BEEN TORMENTING ME FOR HOURS
 
 
 
         else:
             continue
-    
-
-
-    
-
-
-
-def fetch_json_data(file_path, commit_url):
-    # Implement fetching JSON file content from GitHub using commit URL or other means
-    # This is a simplified example; you may need to use GitHub API or other methods
-    # For demonstration, we simply assume it's fetched from a URL
-    # In real-world, you may need to authenticate with GitHub API
-    json_data = {"example": "data"}
-    return json_data
-
-@app.route('/api/<city>', methods=['GET'])
-def get_json_data_city():
-    global stored_data
-    return jsonify(stored_data[city])
+    return ()
 
 @app.route('/', methods=['GET'])
 def get_json_data():
