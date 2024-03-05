@@ -47,7 +47,7 @@ def handle_push_event(payload):
             try:
                 response = urllib.request.urlopen(url)
                 stored_data[assetName] = json.loads(response.read())
-            except urllib.error.HTTPError:
+            except HTTPError:
                 print("404 ERROR: "+ url)
 
 
