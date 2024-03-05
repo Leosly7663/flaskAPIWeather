@@ -23,10 +23,8 @@ def github_webhook():
 def handle_push_event(payload):
     # Instead of taking info from the payload the push event will simply trigger the data to fill from github using the github timer to time json updates
     
-    
-    
 
-    data = json.loads(payload)
+    data = payload
     added_files = data['commits'][0]['added']
 
     stored_data["added"] = added_files
