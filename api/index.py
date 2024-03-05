@@ -41,11 +41,13 @@ def handle_push_event(payload):
             assetName = re.match(r"^\w+", assetName).group()
 
             url = urlBase + assetUniqueLink
-            url = urllib.parse.quote(url, safe=':/')
+            url = url.replace(" ", "%20")
 
-            response = urllib.request.urlopen(url)
-            stored_data[assetName] = json.loads(response.read())
-
+            try:
+                response = urllib.request.urlopen(url)
+                stored_data[assetName] = json.loads(response.read())
+            except:
+                print("404 ERROR: "+ url)
 
 
         else:
