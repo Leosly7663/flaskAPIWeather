@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import urllib, json
+import re
 
 app = Flask(__name__)
 
@@ -34,7 +35,8 @@ def handle_push_event(payload):
     for elem in data['commits'][0]['added']:
         if elem[-5:] == ".json":
             assetUniqueLink = elem
-            assetName = elem[:5]
+            assetName = elem[12:]
+            assetName = re.match(r"^\w+", assetName).group()
 
             url = urlBase + assetUniqueLink
             url = url.replace(" ", "%20")
