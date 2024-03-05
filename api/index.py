@@ -37,15 +37,13 @@ def handle_push_event(payload):
 
     for elem in data['commits'][0]['added']:
         if elem[-5:] == ".json":
-            assetUniqueLink = elem
             assetName = elem[12:]
             assetName = re.match(r"^\w+", assetName).group()
 
-            url = urlBase + assetUniqueLink
-            url = url.replace(" ", "%20")
-            #url = url.replace("é", "%C3%A9")
+            # Encode the URL with UTF-8
+            encoded_url = quote(urlBase + elem, safe=':/')
 
-            response = urllib.request.urlopen(url, timeout=1)  # Set timeout to 1 seconds
+            response = urllib.request.urlopen(encoded_url, timeout=1)  # Set timeout to 1 second
             stored_data[assetName] = json.loads(response.read())
 
                 # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
