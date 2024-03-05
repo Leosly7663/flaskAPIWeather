@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import urllib, json
-from urllib.request import Request
+from urllib.request import Request, urlopen
 
 app = Flask(__name__)
 
@@ -37,7 +37,7 @@ def handle_push_event(payload):
         assetName = elem[:5]
 
         weatherReq = Request("https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/" + str(assetUniqueLink), headers={'User-Agent': 'Mozilla/5.0'})
-        
+
         response = urlopen(weatherReq).read()
         stored_data[assetName] = json.loads(response.read())
 
