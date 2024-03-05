@@ -35,7 +35,7 @@ def handle_push_event(payload):
         assetUniqueLink = elem
         assetName = elem[:5]
 
-        response = urllib.request.urlopen(urlBase + assetUniqueLink)
+        response = urllib.request.urlopen(urlBase + str(assetUniqueLink))
         stored_data[assetName] = json.loads(response.read())
 
     
