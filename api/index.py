@@ -27,7 +27,7 @@ def get_json_data_city(city):
     data = json.loads(response.read())
 
 
-    return data
+    return encoded_url
 
         # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
         # I FOUND THE STUPID UNICODE CHARACTER THAT HAS BEEN TORMENTING ME FOR HOURS
