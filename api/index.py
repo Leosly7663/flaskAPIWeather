@@ -15,8 +15,8 @@ def get_json_data_city(city):
     recentsLink = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Recent.json"
     urlBase = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/"
 
-    response = urllib.request.urlopen(recentsLink, timeout=1)  # Set timeout to 1 second
-    stored_data = json.loads(response.read())
+    responseRecent = urllib.request.urlopen(recentsLink, timeout=1)  # Set timeout to 1 second
+    stored_data = json.loads(responseRecent.read())
 
     # Encode the URL with UTF-8
     
@@ -24,7 +24,7 @@ def get_json_data_city(city):
     encoded_url = quote(urlBase + stored_data[city], safe=':/')
 
     response = urllib.request.urlopen(encoded_url, timeout=1)  # Set timeout to 1 second
-    return jsonify({[city] : json.loads(response.read())})
+    return json.loads(response.read())
 
         # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
         # I FOUND THE STUPID UNICODE CHARACTER THAT HAS BEEN TORMENTING ME FOR HOURS
