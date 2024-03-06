@@ -61,7 +61,6 @@ def get_json_data_city(city):
 
         else:
             continue
-    return ()
 
 @app.route('/', methods=['GET'])
 def get_json_data():
