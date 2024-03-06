@@ -23,11 +23,11 @@ def get_json_data_city(city):
 
     encoded_url = quote(urlBase + stored_data[city], safe=':/')
 
-    response = urllib.request.urlopen(encoded_url)  # Set timeout to 1 second
+    response = urllib.request.urlopen(encoded_url) 
     data = json.loads(response.read())
 
 
-    return response
+    return data
 
         # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
         # I FOUND THE STUPID UNICODE CHARACTER THAT HAS BEEN TORMENTING ME FOR HOURS
