@@ -4,11 +4,11 @@ This is a simple Flask REST API that retrieves current weather data for a given 
 
 ## Endpoint
 
-The API endpoint is `https://flask-apiw-eather.vercel.app//api/<cityName>` where `<cityName>` is the name of the city for which you want to retrieve weather data.
+The API endpoint is `https://flask-apiw-eather.vercel.app/api/<cityName>` where `<cityName>` is the name of the city for which you want to retrieve weather data.
 
 ## Example
 
-For example, if you want to get the weather data for Guelph, you would make a GET request to `https://flask-apiw-eather.vercel.app//api/Guelph`.
+For example, if you want to get the weather data for Guelph, you would make a GET request to `https://flask-apiw-eather.vercel.app/api/Guelph`.
 
 ## Response
 
