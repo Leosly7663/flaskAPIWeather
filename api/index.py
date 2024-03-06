@@ -17,9 +17,10 @@ def get_json_data_city(city):
     response = urllib.request.urlopen(recentsLink, timeout=1)  # Set timeout to 1 second
     stored_data = json.loads(response.read())
 
-    return(stored_data)
+    
 
     for elem in stored_data:
+        return(elem)
         if (elem[-5:] == ".json"):
             assetName = elem[12:]
             assetName = re.match(r"^\w+", assetName).group()
