@@ -2,12 +2,14 @@ from flask import Flask, request, jsonify
 from urllib.parse import quote
 import urllib, json
 import re
+from flask_cors import CORS
 
 app = Flask(__name__)
 
 # Dummy storage for JSON data
 
-    
+
+CORS(app)
 
 @app.route('/api/<city>', methods=['GET'])
 def get_json_data_city(city):
