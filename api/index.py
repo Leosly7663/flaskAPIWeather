@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from urllib.parse import quote
 import urllib, json
 import re
+from urllib.parse import unquote
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -14,6 +15,8 @@ CORS(app)
 @app.route('/api/<city>', methods=['GET'])
 def get_json_data_city(city):
 
+    city = unquote(city)
+    
     recentsLink = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Recent.json"
     urlBase = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/"
 
