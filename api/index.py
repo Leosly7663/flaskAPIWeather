@@ -45,6 +45,8 @@ def get_json_data_city(city):
         if elem[-5:] == ".json":
             assetName = elem[12:]
             assetName = re.match(r"^\w+", assetName).group()
+            print(assetName)
+            print(city)
             if assetName == city:
                 # Encode the URL with UTF-8
                 urlBase = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/"
@@ -56,11 +58,7 @@ def get_json_data_city(city):
 
                     # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
                     # I FOUND THE STUPID UNICODE CHARACTER THAT HAS BEEN TORMENTING ME FOR HOURS
-
-
-
-        else:
-            continue
+    return jsonify({"error": "City data not found"})
 
 @app.route('/', methods=['GET'])
 def get_json_data():
