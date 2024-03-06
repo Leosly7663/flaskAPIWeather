@@ -21,7 +21,7 @@ def get_json_data_city(city):
     # Encode the URL with UTF-8
     
 
-    encoded_url = quote(urlBase + , safe=':/')
+    encoded_url = quote(urlBase + stored_data[city], safe=':/')
 
     response = urllib.request.urlopen(encoded_url, timeout=1)  # Set timeout to 1 second
     data = json.loads(response.read())
