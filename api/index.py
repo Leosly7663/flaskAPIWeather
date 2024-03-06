@@ -20,16 +20,15 @@ def get_json_data_city(city):
 
     # Encode the URL with UTF-8
     
-    try:
-        encoded_url = quote(urlBase + stored_data[city], safe=':/')
 
-        response = urllib.request.urlopen(encoded_url, timeout=1)  # Set timeout to 1 second
-        return jsonify({[city] : json.loads(response.read())})
+    encoded_url = quote(urlBase + stored_data[city], safe=':/')
 
-            # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
-            # I FOUND THE STUPID UNICODE CHARACTER THAT HAS BEEN TORMENTING ME FOR HOURS
-    except:
-        return jsonify({"error": "City data not found " + city})
+    response = urllib.request.urlopen(encoded_url, timeout=1)  # Set timeout to 1 second
+    return jsonify({[city] : json.loads(response.read())})
+
+        # 404 ERROR: https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/Assets/Data/Ottawa%20(Kanata%20-%20Orléans)/Main_2024-03-05_Queried_at_17h36m.json 
+        # I FOUND THE STUPID UNICODE CHARACTER THAT HAS BEEN TORMENTING ME FOR HOURS
+
 
 @app.route('/', methods=['GET'])
 def get_json_data():
