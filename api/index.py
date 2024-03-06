@@ -42,12 +42,12 @@ def get_json_data_city(city):
     global stored_data
 
     for elem in stored_data:
-        if elem[-5:] == ".json":
+        if (elem[-5:] == ".json"):
             assetName = elem[12:]
             assetName = re.match(r"^\w+", assetName).group()
             print(assetName)
             print(city)
-            if assetName == city:
+            if(assetName == city):
                 # Encode the URL with UTF-8
                 urlBase = "https://raw.githubusercontent.com/Leosly7663/Weather-Data-Analysis/main/"
 
